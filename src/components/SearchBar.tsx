@@ -1,8 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 
 import SearchIcon from "@mui/icons-material/Search";
 
-const SearchBar = () => {
+const SearchBar: FC = () => {
   return (
     <div className="bg-white rounded-full overflow-hidden h-full pl-4 sm:mr-5">
       <form

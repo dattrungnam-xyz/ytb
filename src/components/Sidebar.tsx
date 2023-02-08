@@ -14,6 +14,7 @@ const Sidebar: FC<SidebarProps> = ({ active, handleActive }) => {
         if (item.name === active) {
           return (
             <div
+              key={item.name}
               className="flex gap-2 my-2 max-sm:gap-0 max-sm:my-1 max-sm:mx-2 group rounded-full bg-[red] hover:opacity-80 cursor-pointer transition"
               onClick={() => handleActive(item.name)}
             >
@@ -28,6 +29,7 @@ const Sidebar: FC<SidebarProps> = ({ active, handleActive }) => {
         } else {
           return (
             <div
+              key={item.name}
               className="flex gap-2 my-2 max-sm:gap-0 max-sm:my-1 max-sm:mx-2 group rounded-full hover:bg-[red] hover:opacity-80 cursor-pointer transition"
               onClick={() => handleActive(item.name)}
             >

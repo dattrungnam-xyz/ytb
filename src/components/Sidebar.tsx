@@ -9,7 +9,7 @@ type SidebarProps = {
 
 const Sidebar: FC<SidebarProps> = ({ active, handleActive }) => {
   return (
-    <div className="w-[216px] h-[calc(100vh-61px)] max-sm:w-full max-sm:h-auto max-sm:flex overflow-y-auto   ">
+    <div className="w-[216px] h-[calc(100vh-61px)] max-sm:w-full max-sm:h-auto max-sm:flex overflow-y-auto pr-4  border-r-[1px] ">
       {categories.map((item) => {
         if (item.name === active) {
           return (

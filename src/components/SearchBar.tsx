@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBar: FC = () => {
   return (
-    <div className="bg-white rounded-full overflow-hidden h-full pl-4 sm:mr-5">
+    <div className="bg-white rounded-full overflow-hidden h-full pl-4 sm:mr-5 ">
       <form
         className=" py-2 px-2 max-sm:py-1 items-center flex gap-3 "
         action=""

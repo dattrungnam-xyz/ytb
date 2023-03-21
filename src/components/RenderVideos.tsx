@@ -52,7 +52,7 @@ const RenderVideos = ({ videos, active }: RenderVideosProps) => {
                 className="text-white bg-[#1e1e1e] rounded-lg overflow-hidden cursor-pointer"
               >
                 <img
-                  className="w-[320px] h-[140px] object-fill  hover:opacity-80"
+                  className="w-[320px] h-[140px]  object-fill  hover:opacity-80"
                   src={video.snippet.thumbnails.medium.url}
                   alt=""
                 />

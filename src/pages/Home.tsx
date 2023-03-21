@@ -43,7 +43,8 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${active}`).then((data) => {
+    fetchFromAPI(`search?part=snippet&q=${active}`).then((data: any) => {
+      console.log(data);
       setItem(data.items);
       setLoading(false);
     });

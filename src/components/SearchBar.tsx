@@ -10,7 +10,7 @@ const SearchBar: FC = () => {
         action=""
       >
         <input
-          className="text-lg outline-none h-full max-sm:text-base"
+          className="text-lg outline-none h-full max-sm:text-base bg-transparent"
           placeholder="Search..."
           type="text"
         />

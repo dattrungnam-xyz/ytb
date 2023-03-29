@@ -38,17 +38,21 @@ const Home = () => {
   const [item, setItem] = useState<Array<itemProps>>([]);
 
   const handleActive = (title: string) => {
-    setLoading(true);
+   
     setActive(title);
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchFromAPI(`search?part=snippet&q=${active}`).then((data: any) => {
-      console.log(data);
+      
       setItem(data.items);
-      setLoading(false);
-    });
-
+    })
+    .finally(()=>{
+      setLoading(false)
+    }
+    );
+  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
   return (
@@ -56,7 +60,7 @@ const Home = () => {
       <Header />
       <div className="flex max-sm:flex-col px-2 gap-4 bg-[#000000]">
         <Sidebar active={active} handleActive={handleActive} />
-        <div className="bg-[black] flex-1 flex items-center justify-center">
+        <div className="bg-[black] flex-1 flex items-center justify-center overflow-y-auto">
           {loading ? (
             <Loading />
           ) : (

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import { Skeleton } from "@mui/material";
+
+
 import { Header, RenderVideos, Sidebar, Loading } from "../components";
 import { fetchFromAPI } from "../utils/fetchApi";
 type itemProps = {
@@ -60,9 +63,20 @@ const Home = () => {
       <Header />
       <div className="flex max-sm:flex-col px-2 gap-4 bg-[#000000]">
         <Sidebar active={active} handleActive={handleActive} />
-        <div className="bg-[black] flex-1 flex items-center justify-center overflow-y-auto">
+        <div className="bg-[black] flex-1 flex items-center justify-center overflow-y-auto pr-2">
+          {/* <Skeleton variant="rectangular" width={210} height={118} sx={{ bgcolor: 'grey.200' }} />
+           <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" /> */}
           {loading ? (
             <Loading />
+          //   <SkeletonTheme baseColor="#ff0707" highlightColor="#fff">
+          //   <p>
+          //     <Skeleton count={3} />
+          //   </p>
+          // </SkeletonTheme>
+          //     <>
+          // <Skeleton count={5} /> 
+          // <Skeleton height={30} />
+          //     </>
           ) : (
             <RenderVideos active={active} videos={item} />
           )}

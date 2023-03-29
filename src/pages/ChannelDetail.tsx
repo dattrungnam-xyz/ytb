@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {BsFillCheckCircleFill} from 'react-icons/bs'
+import { BsFillCheckCircleFill } from "react-icons/bs";
 
 import { Header, Loading, RenderVideos } from "../components";
 import { fetchFromAPI } from "../utils/fetchApi";
@@ -107,55 +107,80 @@ const ChannelDetail = () => {
   const [loading, setLoading] = useState<Boolean>(false);
   const { id } = useParams();
 
-  const getVideo = () =>{
-      setLoading(true);
-      fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`).then((data: any) => {
-        
+  const getVideo = () => {
+    setLoading(true);
+    fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`)
+      .then((data: any) => {
         setItem(data.items);
       })
-      .finally(()=>{
-        setLoading(false)
-      }
-      );
-  }
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    
     fetchFromAPI(`channels?part=snippet,statistics&id=${id}`).then(
       (data: any) => {
         setDataChannel(data);
         getVideo();
       }
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (
     <section className="bg-black min-h-screen">
       <Header />
-      <div className="h-[300px] bg-gradient-to-r from-violet-500 to-fuchsia-500" >
-     
-      </div>
-      
+      <div className="h-[300px] bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+
       <div className="mt-[-93px] w-full h-[180px] flex items-center justify-center ">
-        {
-            dataChannel ?
-        <img className="w-[180px] h-[180px] rounded-full border" src={dataChannel?.items[0].snippet.thumbnails.medium.url} alt="logo" />
-       : <img className="w-[180px] h-[180px] rounded-full border" src={'https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg'} alt="logo" />
-        
-      }
+        {loading ? (
+          <img
+            className="w-[180px] h-[180px] rounded-full border"
+            src={
+              "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
+            }
+            alt="logo"
+          />
+        ) : (
+          <img
+            className="w-[180px] h-[180px] rounded-full border"
+            src={dataChannel?.items[0].snippet.thumbnails.medium.url}
+            alt="logo"
+          />
+        )}
       </div>
       <div className="flex flex-col mt-4 items-center justify-center">
         <div className="flex items-center justify-center">
-          <p className="mr-1 text-[18px]  text-white">{dataChannel?.items[0].snippet.title}</p>
-          <BsFillCheckCircleFill style={{ fontSize: '14px', color: 'gray'}} color="gray"/>
+          <p className="mr-1 text-[18px]  text-white">
+            {dataChannel?.items[0].snippet.title}
+          </p>
+          <BsFillCheckCircleFill
+            style={{ fontSize: "14px", color: "gray" }}
+            color="gray"
+          />
         </div>
         <div>
-          <p className="text-[15px] text-[gray]">{dataChannel?.items[0].statistics.subscriberCount && parseInt(dataChannel?.items[0].statistics.subscriberCount).toLocaleString()} Subscribers</p>
+          {!loading && (
+            <p className="text-[15px] text-[gray]">
+              {dataChannel?.items[0].statistics.subscriberCount &&
+                parseInt(
+                  dataChannel?.items[0].statistics.subscriberCount
+                ).toLocaleString()}{" "}
+              Subscribers
+            </p>
+          )}
         </div>
       </div>
       <div className=" mt-8 bg-black px-8 max-sm:px-2">
-        {loading?<div className="w-full flex items-center justify-center"> <Loading/></div> : <RenderVideos videos={item} channelDetail={true} scroll={false}/>}
+        {loading ? (
+          <div className="w-full flex items-center justify-center">
+            {" "}
+            {/* <Loading /> */}
+          </div>
+        ) : (
+          <RenderVideos videos={item} channelDetail={true} scroll={false} />
+        )}
       </div>
     </section>
   );

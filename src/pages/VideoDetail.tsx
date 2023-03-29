@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import ReactPlayer from "react-player";
-import { useParams , Link} from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { Skeleton } from "@mui/material";
 
 import { Header } from "../components";
 import RenderVideo from "../components/RenderVideo";
@@ -71,38 +72,54 @@ const VideoDetail = () => {
     fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`).then(
       (data) => setVideos(data.items)
     );
+    console.log(videoDetail);
   }, [id]);
   return (
     <div className="h-[100vh] bg-black">
       <Header />
       <div className=" flex gap-4 px-4 max-sm:gap-0 max-sm:px-4">
         <div className="w-[80%] max-sm:w-[100%] max-md:w-[70%] max-lg:w-[75%] ">
-          <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${id}`}
-            controls
-            width="100%"
-            height="77vh"
-          />
+          
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${id}`}
+              controls
+              width="100%"
+              height="77vh"
+            />
+          
           <div className="text-white">
             <p className="py-2 px-4 text-white text-lg font-bold">
               {videoDetail?.snippet.title}
             </p>
             <div className="flex justify-between py-1 px-4">
-          
-                
-                <div className="flex items-center justify-center">
-                  <Link to={`/channel/${videoDetail?.snippet.channelId}`} className="mr-1 text-sm  text-white cursor-pointer">
+              <div className="flex items-center justify-center">
+                <Link
+                  to={`/channel/${videoDetail?.snippet.channelId}`}
+                  className="mr-1 text-sm  text-white cursor-pointer"
+                >
                   {videoDetail?.snippet.channelTitle}
-                  </Link>
-                  <BsFillCheckCircleFill
-                    style={{ fontSize: "12px", color: "gray" }}
-                    color="gray"
-                  />
-                
+                </Link>
+                <BsFillCheckCircleFill
+                  style={{ fontSize: "12px", color: "gray" }}
+                  color="gray"
+                />
               </div>
               <div className="flex ">
-                <p className="text-sm">{videoDetail?.statistics.viewCount && parseInt(videoDetail?.statistics.viewCount).toLocaleString()} views</p>
-                <p className="text-sm ml-4"> {videoDetail?.statistics.likeCount && parseInt(videoDetail?.statistics.likeCount).toLocaleString()} likes</p>
+                <p className="text-sm">
+                  {videoDetail?.statistics.viewCount &&
+                    parseInt(
+                      videoDetail?.statistics.viewCount
+                    ).toLocaleString()}{" "}
+                  views
+                </p>
+                <p className="text-sm ml-4">
+                  {" "}
+                  {videoDetail?.statistics.likeCount &&
+                    parseInt(
+                      videoDetail?.statistics.likeCount
+                    ).toLocaleString()}{" "}
+                  likes
+                </p>
               </div>
             </div>
           </div>
@@ -113,7 +130,7 @@ const VideoDetail = () => {
               {videos.map((video) => {
                 return (
                   <>
-                    <div className="w-full lg:min-h-[200px] md:min-h-[180px] bg-[#1e1e1e] mb-4 max-sm:hidden cursor-pointer">
+                    <div className="w-full lg:min-h-[200px] md:min-h-[180px]  mb-4 max-sm:hidden cursor-pointer">
                       <RenderVideo video={video} />
                     </div>
                   </>

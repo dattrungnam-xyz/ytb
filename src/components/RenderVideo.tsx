@@ -113,7 +113,7 @@ const RenderVideo = ({ video }: RenderVideoPropsType) => {
     <Link
       to={`/video/${video.id.videoId}`}
       key={video.id.videoId}
-      className="text-white   overflow-hidden cursor-pointer w-[calc(25%-16px)] max-w-[320px]"
+      className="text-white   overflow-hidden cursor-pointer w-[calc(50%-8px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-16px)] max-w-[320px]"
     >
       <img
         className="max-w-[320px] w-full h-[55%] max-sm:h-[130px] lg:w-full object-fill  hover:opacity-80 rounded"

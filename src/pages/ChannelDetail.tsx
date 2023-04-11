@@ -137,9 +137,9 @@ const ChannelDetail = () => {
         {loading ? (
           <img
             className="w-[180px] h-[180px] rounded-full border"
-            src={
-              "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
-            }
+            // src={
+            //   "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
+            // }
             alt="logo"
           />
         ) : (
@@ -151,7 +151,7 @@ const ChannelDetail = () => {
         )}
       </div>
       <div className="flex flex-col mt-4 items-center justify-center">
-        <div className="flex items-center justify-center">
+        {!loading && <div className="flex items-center justify-center">
           <p className="mr-1 text-[18px]  text-white">
             {dataChannel?.items[0].snippet.title}
           </p>
@@ -159,7 +159,7 @@ const ChannelDetail = () => {
             style={{ fontSize: "14px", color: "gray" }}
             color="gray"
           />
-        </div>
+        </div>}
         <div>
           {!loading && (
             <p className="text-[15px] text-[gray]">
@@ -175,8 +175,7 @@ const ChannelDetail = () => {
       <div className=" mt-8 bg-black px-8 max-sm:px-2">
         {loading ? (
           <div className="w-full flex items-center justify-center">
-            {" "}
-            {/* <Loading /> */}
+         
           </div>
         ) : (
           <RenderVideos videos={item} channelDetail={true} scroll={false} />

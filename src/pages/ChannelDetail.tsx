@@ -119,12 +119,13 @@ const ChannelDetail = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchFromAPI(`channels?part=snippet,statistics&id=${id}`).then(
       (data: any) => {
         setDataChannel(data);
         getVideo();
       }
-    );
+    ).then(()=>setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -135,13 +136,7 @@ const ChannelDetail = () => {
 
       <div className="mt-[-93px] w-full h-[180px] flex items-center justify-center ">
         {loading ? (
-          <img
-            className="w-[180px] h-[180px] rounded-full border"
-            // src={
-            //   "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
-            // }
-            alt="logo"
-          />
+          <></>
         ) : (
           <img
             className="w-[180px] h-[180px] rounded-full border"

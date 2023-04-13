@@ -14,7 +14,7 @@ const SearchBar: FC = () => {
   {
       e.preventDefault();
 
-      navigate(`/search/${searchText}`);
+      searchText && navigate(`/search/${searchText}`);
       setSearchText("");
   }
   return (
@@ -31,9 +31,9 @@ const SearchBar: FC = () => {
           value={searchText}
           onChange={handleChangeText}
         />
-        <div className="items-center ">
-          <SearchIcon className="text-[red] cursor-pointer items-center" />
-        </div>
+        <button type="submit"  className="items-center border-none outline-none ">
+          <SearchIcon  className="text-[red] cursor-pointer items-center" />
+        </button>
       </form>
     </div>
   );

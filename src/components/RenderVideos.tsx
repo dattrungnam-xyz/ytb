@@ -1,6 +1,7 @@
 import React from "react";
 
 import RenderVideo from "./RenderVideo";
+import SkeletonVideo from "./SkeletonVideo";
 type videoProps = {
   id: { kind: string; videoId: string };
   kind: string;
@@ -45,7 +46,7 @@ const RenderVideos = ({
 }: RenderVideosProps) => {
   return (
     <>
-      {scroll ?  (
+      {scroll ? (
         <div className=" h-[calc(100vh-61px)] max-sm:h-[calc(100vh-122px)] overflow-y-auto  w-full pb-4">
           {channelDetail ? (
             <></>
@@ -60,18 +61,20 @@ const RenderVideos = ({
             </>
           )}
 
-          {/* <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"> */}
-            <div className="flex flex-wrap gap-4">
-            {videos
-              .filter((video) => {
-                return video.id.videoId;
-              })
-              .map((video) => {
-                return <RenderVideo video={video} />;
-              })}
+          <div className="flex flex-wrap gap-4">
+            {
+              videos
+                .filter((video) => {
+                  return video.id.videoId;
+                })
+                .map((video) => {
+                  return <RenderVideo video={video} />;
+                })}
+
+           
           </div>
         </div>
-      ):(
+      ) : (
         <div className="h-full  overflow-y-auto  w-full pb-4">
           {channelDetail ? (
             <></>
@@ -87,17 +90,27 @@ const RenderVideos = ({
           )}
 
           <div className="flex flex-wrap gap-4">
-            {/* <div className="flex flex-wrap gap-4"> */}
-            {videos
+            {/* {videos
               .filter((video) => {
                 return video.id.videoId;
               })
               .map((video) => {
-                return <RenderVideo video={video} />;
-              })}
+                return <RenderVideo loading={loading} video={video} />;
+              })} */}
+
+            {
+              videos
+                .filter((video) => {
+                  return video.id.videoId;
+                })
+                .map((video) => {
+                  return <RenderVideo video={video} />;
+                })}
+
+          
           </div>
         </div>
-      ) }
+      )}
     </>
   );
 };

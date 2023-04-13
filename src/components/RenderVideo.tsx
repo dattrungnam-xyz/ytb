@@ -1,7 +1,8 @@
-import React, { useEffect ,useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { fetchFromAPI } from "../utils/fetchApi";
+import Skeleton from "@mui/material/Skeleton/Skeleton";
 type RenderVideoPropsType = {
   video: {
     id: { kind: string; videoId: string };
@@ -33,6 +34,7 @@ type RenderVideoPropsType = {
       };
     };
   };
+ 
 };
 type dataType = {
   items: [
@@ -107,41 +109,43 @@ const RenderVideo = ({ video }: RenderVideoPropsType) => {
   //     (data: any) => {
   //       setDataChannel(data);
   //     })
-      
+
   // },[])
   return (
-    <Link
-      to={`/video/${video.id.videoId}`}
-      key={video.id.videoId}
-      className="text-white   overflow-hidden cursor-pointer w-[calc(50%-8px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-16px)] max-w-[320px]"
-    >
-      <img
-        className="max-w-[320px] w-full h-[55%] max-sm:h-[130px] lg:w-full object-fill  hover:opacity-80 rounded"
-        src={video.snippet.thumbnails.medium.url}
-        alt=""
-      />
+    <>
+      <Link
+        to={`/video/${video.id.videoId}`}
+        key={video.id.videoId}
+        className="text-white   overflow-hidden cursor-pointer w-[calc(50%-8px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-16px)] max-w-[320px]"
+      >
+        <img
+          className="max-w-[320px] w-full h-[55%] max-sm:h-[130px] lg:w-full object-fill  hover:opacity-80 rounded"
+          src={video.snippet.thumbnails.medium.url}
+          alt=""
+        />
 
-      <div className="my-2 p-2 flex gap-4 ">
-        {/* <div className="w-[28px] h-[28px] ">
+        <div className="my-2 p-2 flex gap-4 ">
+          {/* <div className="w-[28px] h-[28px] ">
           <img
             className="w-full min-w-[28px] min-h-[28px] h-full rounded-full"
             src={dataChannel?.items[0].snippet.thumbnails.medium.url}
             alt=" "
           />
         </div> */}
-        <div className="w-full">
-          <p className="truncate-2-line overflow-hidden h-[40px] text-sm">
-            {video.snippet.title}
-          </p>
-          <Link
-            to={`/channel/${video.snippet.channelId}`}
-            className="mt-2 text-xs text-[gray]"
-          >
-            {video.snippet.channelTitle}
-          </Link>
+          <div className="w-full">
+            <p className="truncate-2-line overflow-hidden h-[40px] text-sm">
+              {video.snippet.title}
+            </p>
+            <Link
+              to={`/channel/${video.snippet.channelId}`}
+              className="mt-2 text-xs text-[gray]"
+            >
+              {video.snippet.channelTitle}
+            </Link>
+          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </>
   );
 };
 

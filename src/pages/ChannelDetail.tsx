@@ -4,6 +4,8 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 
 import { Header, Loading, RenderVideos } from "../components";
 import { fetchFromAPI } from "../utils/fetchApi";
+import Skeleton from "@mui/material/Skeleton/Skeleton";
+import SkeletonVideo from "../components/SkeletonVideo";
 
 type dataType = {
   items: [
@@ -108,24 +110,24 @@ const ChannelDetail = () => {
   const { id } = useParams();
 
   const getVideo = () => {
-    setLoading(true);
-    fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`)
-      .then((data: any) => {
+    fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`).then(
+      (data: any) => {
         setItem(data.items);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      }
+    );
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchFromAPI(`channels?part=snippet,statistics&id=${id}`).then(
-      (data: any) => {
+    fetchFromAPI(`channels?part=snippet,statistics&id=${id}`)
+      .then((data: any) => {
         setDataChannel(data);
         getVideo();
-      }
-    ).then(()=>setLoading(false));
+      })
+      .then(() => {
+        setLoading(false);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -136,7 +138,16 @@ const ChannelDetail = () => {
 
       <div className="mt-[-93px] w-full h-[180px] flex items-center justify-center ">
         {loading ? (
-          <></>
+          <>
+            <div>
+              <Skeleton
+                variant="circular"
+                width={180}
+                sx={{ bgcolor: "grey.900" }}
+                height={180}
+              />
+            </div>
+          </>
         ) : (
           <img
             className="w-[180px] h-[180px] rounded-full border"
@@ -146,22 +157,33 @@ const ChannelDetail = () => {
         )}
       </div>
       <div className="flex flex-col mt-4 items-center justify-center">
-        {!loading && <div className="flex items-center justify-center">
-          <p className="mr-1 text-[18px]  text-white">
-            {dataChannel?.items[0].snippet.title}
-          </p>
-          <BsFillCheckCircleFill
-            style={{ fontSize: "14px", color: "gray" }}
-            color="gray"
-          />
-        </div>}
+        <div className="flex  items-center justify-center">
+          {loading ? (
+            <div className="flex  items-center justify-center flex-col">
+              <Skeleton width={210} height={28} sx={{ bgcolor: "grey.900" }} />
+
+              <Skeleton width={160} height={24} sx={{ bgcolor: "grey.900" }} />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center">
+              <p className="mr-1 text-[18px]  text-white">
+                {dataChannel?.items[0].snippet.title}
+              </p>
+              <BsFillCheckCircleFill
+                style={{ fontSize: "14px", color: "gray" }}
+                color="gray"
+              />
+            </div>
+          )}
+        </div>
+
         <div>
           {!loading && (
             <p className="text-[15px] text-[gray]">
               {dataChannel?.items[0].statistics.subscriberCount &&
                 parseInt(
                   dataChannel?.items[0].statistics.subscriberCount
-                ).toLocaleString()}{" "}
+                ).toLocaleString()}
               Subscribers
             </p>
           )}
@@ -169,8 +191,13 @@ const ChannelDetail = () => {
       </div>
       <div className=" mt-8 bg-black px-8 max-sm:px-2">
         {loading ? (
-          <div className="w-full flex items-center justify-center">
-         
+          <div className="w-full flex flex-wrap gap-4 items-center justify-center">
+            {loading &&
+              Array(50)
+                .fill(undefined)
+                .map((item) => {
+                  return <SkeletonVideo />;
+                })}
           </div>
         ) : (
           <RenderVideos videos={item} channelDetail={true} scroll={false} />

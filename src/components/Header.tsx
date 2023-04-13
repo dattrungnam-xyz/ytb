@@ -7,7 +7,7 @@ import { logo } from "../utils/constant";
 const Header: FC = () => {
   return (
     <div
-      className="flex flex-row items-center p-2 sticky bg-[#000] top-[0]  justify-between 
+      className="flex flex-row items-center p-2 sticky bg-[#000] top-[0]  justify-between z-50
     "
     >
       <Link className="flex items-center cursor-pointer" to={"/"}>

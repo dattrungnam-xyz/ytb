@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 
 import { Skeleton } from "@mui/material";
 
-
 import { Header, RenderVideos, Sidebar, Loading } from "../components";
 import { fetchFromAPI } from "../utils/fetchApi";
+import SkeletonVideo from "../components/SkeletonVideo";
 type itemProps = {
   id: { kind: string; videoId: string };
   kind: string;
@@ -41,21 +41,19 @@ const Home = () => {
   const [item, setItem] = useState<Array<itemProps>>([]);
 
   const handleActive = (title: string) => {
-   
     setActive(title);
   };
 
   useEffect(() => {
     setLoading(true);
-    fetchFromAPI(`search?part=snippet&q=${active}`).then((data: any) => {
-      
-      setItem(data.items);
-    })
-    .finally(()=>{
-      setLoading(false)
-    }
-    );
-  
+    fetchFromAPI(`search?part=snippet&q=${active}`)
+      .then((data: any) => {
+        setItem(data.items);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
   return (
@@ -67,17 +65,22 @@ const Home = () => {
           {/* <Skeleton variant="rectangular" width={210} height={118} sx={{ bgcolor: 'grey.200' }} />
            <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" /> */}
           {loading ? (
-            <Loading />
-          //   <SkeletonTheme baseColor="#ff0707" highlightColor="#fff">
-          //   <p>
-          //     <Skeleton count={3} />
-          //   </p>
-          // </SkeletonTheme>
-          //     <>
-          // <Skeleton count={5} /> 
-          // <Skeleton height={30} />
-          //     </>
+            <div className="w-full flex flex-wrap gap-4 items-center justify-center">
+            {loading &&
+              Array(50).fill(undefined).map((item) => {
+                return <SkeletonVideo />;
+              })}
+          </div>
           ) : (
+            //   <SkeletonTheme baseColor="#ff0707" highlightColor="#fff">
+            //   <p>
+            //     <Skeleton count={3} />
+            //   </p>
+            // </SkeletonTheme>
+            //     <>
+            // <Skeleton count={5} />
+            // <Skeleton height={30} />
+            //     </>
             <RenderVideos active={active} videos={item} />
           )}
         </div>
